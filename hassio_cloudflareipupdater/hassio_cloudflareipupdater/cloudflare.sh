@@ -34,11 +34,15 @@ fi
 while true  
 do
 
+IPV6="yes please"
+
 echo "Current time: $(date "+%Y-%m-%d %H:%M:%S")"
 if [[ -z $IPV6 ]]; then
+    echo "Use ipv4"
     ip_curl="curl -4s"
     record_type="A"
 else
+    echo "Use ipv6"
     ip_curl="curl -6s"
     record_type="AAAA"
 fi
