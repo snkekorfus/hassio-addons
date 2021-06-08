@@ -92,11 +92,10 @@ dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones
         -H "X-Auth-Key: $API" \
         -H "Content-Type: application/json")
 
-echo $dns_record_response
-
 
 if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
-    bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .content"
+    current_ip=$(bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .content")
+    echo $current_ip
 else
     echo "An error occured during the cloudflare API call"
 fi
