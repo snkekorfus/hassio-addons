@@ -101,12 +101,12 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
         echo "Current ip outdated. Updating!"
         # DNS record to add or update
         new_dns_record='{
-"type":"$record_type",
-"name": "$HOST",
-"content": "$ip",
-"ttl": $TTL,
+"type":"'"$record_type"'",
+"name": "'"$HOST"'",
+"content": "'"$ip"'",
+"ttl": '"$TTL"',
 "priority": 10,
-"proxied": $PROXY
+"proxied": '"$PROXY"'
 }'
 
         echo $new_dns_record
@@ -114,7 +114,7 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
         dns_record_response=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records/$dns_record_id" \
             -H "X-Auth-Email: $EMAIL" \
             -H "X-Auth-Key: $API" \
-            -H "Content-Type: application/json" \
+            -H "Content-type: application/json" \
             --data "$new_dns_record")
         
         echo $dns_record_response
