@@ -114,8 +114,8 @@ EOF
         dns_record_response=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records/$dns_record_id" \
             -H "X-Auth-Email: $EMAIL" \
             -H "X-Auth-Key: $API" \
-            -H "Content-Type: application/json") #\
-            #--data "$new_dns_record")
+            -H "Content-Type: application/json") \
+            --data $new_dns_record)
 
     fi 
 else
