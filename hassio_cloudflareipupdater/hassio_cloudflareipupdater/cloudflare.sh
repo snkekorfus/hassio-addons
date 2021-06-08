@@ -117,6 +117,7 @@ EOF
             -H "Content-Type: application/json" \
             --data $new_dns_record)
 
+        echo "$dns_record_response"
     fi 
 else
     echo "An error occured during the cloudflare API call"
