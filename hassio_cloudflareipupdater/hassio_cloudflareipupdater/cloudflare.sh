@@ -103,7 +103,7 @@ else
 fi
 
 # DNS record to add or update
-read -r -d '' new_dns_record <<EOM
+read -r -d '' new_dns_record <<-EOM
 {
     "type": "$record_type",
     "name": "$HOST",
@@ -114,6 +114,7 @@ read -r -d '' new_dns_record <<EOM
 }
 EOM
 
+echo "Here commes the new DNS"
 echo $new_dns_record
 exit 1
 
