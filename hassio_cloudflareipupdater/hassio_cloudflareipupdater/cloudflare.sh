@@ -1,5 +1,3 @@
 #!/usr/bin/with-contenv bashio
 
-echo "Hello World"
-
-bashio::network
+bashio::network.ipv6_address
