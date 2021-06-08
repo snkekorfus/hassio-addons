@@ -106,7 +106,7 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
 \"ttl\": $TTL,
 \"priority\": 10,
 \"proxied\": $PROXY
-}
+}"
 
         echo $new_dns_record
 
