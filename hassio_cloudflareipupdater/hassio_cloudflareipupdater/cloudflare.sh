@@ -94,7 +94,7 @@ dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones
 
 echo $dns_record_response
 
-bashio:jq "$dns_record_response" .success
+bashio::jq "$dns_record_response" .success
 
 #if [[ bashio::jq ]]
 
