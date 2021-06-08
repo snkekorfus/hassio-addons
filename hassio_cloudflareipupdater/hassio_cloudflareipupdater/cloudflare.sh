@@ -103,7 +103,7 @@ else
 fi
 
 # DNS record to add or update
-new_dns_record <<EOF
+read -d '' new_dns_record <<EOF
 {
     "type": "$record_type",
     "name": "$HOST",
