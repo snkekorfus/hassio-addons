@@ -100,14 +100,14 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
     #else
         echo "Current ip outdated. Updating!"
         # DNS record to add or update
-        new_dns_record="{
-\"type\":\"$record_type\",
-\"name\": \"$HOST\",
-\"content\": \"$ip\",
-\"ttl\": $TTL,
-\"priority\": 10,
-\"proxied\": $PROXY
-}"
+        new_dns_record='{
+"type":"$record_type",
+"name": "$HOST",
+"content": "$ip",
+"ttl": $TTL,
+"priority": 10,
+"proxied": $PROXY
+}'
 
         echo $new_dns_record
 
@@ -115,7 +115,7 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
             -H "X-Auth-Email: $EMAIL" \
             -H "X-Auth-Key: $API" \
             -H "Content-Type: application/json" \
-            --data ${new_dns_record})
+            --data "$new_dns_record")
         
         echo $dns_record_response
     fi 
