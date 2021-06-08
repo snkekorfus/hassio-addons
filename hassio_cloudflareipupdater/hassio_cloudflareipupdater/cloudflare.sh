@@ -1,6 +1,6 @@
 #!/usr/bin/env bashio
 
-echo bashio::network.ipv6_address "eth0"
+echo "$(bashio::network.ipv6_address "eth0")"
 
 CONFIG_PATH=/data/options.json
 
