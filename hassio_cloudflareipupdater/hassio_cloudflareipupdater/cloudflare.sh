@@ -103,7 +103,7 @@ else
 fi
 
 # DNS record to add or update
-read -d '' new_dns_record <<EOF
+read -r -d '' new_dns_record <<EOM
 {
     "type": "$record_type",
     "name": "$HOST",
@@ -112,7 +112,7 @@ read -d '' new_dns_record <<EOF
     "priority": 10,
     "proxied": $PROXY
 }
-EOF
+EOM
 
 echo $new_dns_record
 exit 1
