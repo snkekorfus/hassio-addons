@@ -95,17 +95,10 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
     current_ip=$(bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .content")
     if [[ $current_ip = $ip ]]; then
         echo "Current ip up-to-date. Not updating!"
-    else
+    #else
         echo "Current ip outdated. Updating!"
-    fi 
-else
-    echo "An error occured during the cloudflare API call"
-fi
-
-echo "Define the new DNS"
-
-# DNS record to add or update
-read -r -d '' new_dns_record <<EOF || true
+        # DNS record to add or update
+        read -r -d '' new_dns_record <<EOF || true
 {
     "type": "$record_type",
     "name": "$HOST",
@@ -115,10 +108,20 @@ read -r -d '' new_dns_record <<EOF || true
     "proxied": $PROXY
 }
 EOF
+        echo $new_dns_record
 
-echo "Here commes the new DNS"
-echo $new_dns_record
-exit 1
+        dns_record_response=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records/$dns_record_id" \
+            -H "X-Auth-Email: $EMAIL" \
+            -H "X-Auth-Key: $API" \
+            -H "Content-Type: application/json" \
+            --data "$new_dns_record")
+
+    fi 
+else
+    echo "An error occured during the cloudflare API call"
+fi
+
+
 
 # Adds or updates the record
 dns_record_id=$(jq <<<"$dns_record_response" -r ".result[] | select(.type ==\"$record_type\") |.id")
