@@ -116,6 +116,8 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
             -H "X-Auth-Key: $API" \
             -H "Content-Type: application/json" \
             --data '$new_dns_record')
+        
+        echo $dns_record_response
     fi 
 else
     echo "An error occured during the cloudflare API call"
