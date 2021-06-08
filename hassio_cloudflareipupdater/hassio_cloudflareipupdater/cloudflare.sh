@@ -40,8 +40,6 @@ ipv6=($(bashio::network.ipv6_address))
 new_ip=${ipv6[1]::-4}
 record_type="AAAA"
 
-echo $new_ip
-
 if [[ -z $new_ip ]]; then
     echo >&2 "Error: Something went wrong."
     exit 1
@@ -95,7 +93,11 @@ dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones
 
 if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
     current_ip=$(bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .content")
-    echo $current_ip
+    if [[ $current_ip = $ip ]]; then
+        echo "Current ip up-to-date. Not updating!"
+    else
+        echo "Current ip outdated. Updating!"
+    fi 
 else
     echo "An error occured during the cloudflare API call"
 fi
