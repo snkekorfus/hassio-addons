@@ -2,4 +2,4 @@
 
 echo "Hello World"
 
-bashio::network.network
+bashio::network
