@@ -92,6 +92,8 @@ dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones
         -H "X-Auth-Key: $API" \
         -H "Content-Type: application/json")
 
+echo $dns_record_response
+
 if [[ $(jq <<<"$dns_record_response" -r '.success') != "true" ]]; then
     messages=$(jq <<<"$dns_record_response" -r '[.errors[] | .message] |join(" - ")')
     echo >&2 "Error: $messages"
