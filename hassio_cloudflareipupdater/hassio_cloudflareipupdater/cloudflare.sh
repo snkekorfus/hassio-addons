@@ -95,7 +95,7 @@ dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones
 echo $dns_record_response
 
 
-if [[ bashio::jq "$dns_record_response" ".success" = "true"]]; then
+if [[ $(bashio::jq "$dns_record_response" ".success") = "true"]]; then
     bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\")"
 else
     echo "An error occured during the cloudflare API call"
