@@ -1,6 +1,6 @@
-#!/usr/bin/env bashio
+#!/usr/bashio
 
-#bashio::network.ipv6_address
+bashio::network.ipv6_address
 
 CONFIG_PATH=/data/options.json
 
