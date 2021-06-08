@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bashio
+
+echo $(bashio::network.ipv6_address "eth0")
 
 CONFIG_PATH=/data/options.json
 
@@ -46,8 +48,6 @@ else
     ip_curl="curl -6s"
     record_type="AAAA"
 fi
-
-echo $(ifconfig)
 
 # Determines the current IP address
 new_ip=$($ip_curl https://davidramosweb.com/miip.php)
