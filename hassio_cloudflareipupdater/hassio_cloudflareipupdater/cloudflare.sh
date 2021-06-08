@@ -38,6 +38,7 @@ do
 echo "Current time: $(date "+%Y-%m-%d %H:%M:%S")"
 ipv6=($(bashio::network.ipv6_address))
 new_ip=${ipv6[1]::-4}
+record_type="AAAA"
 
 echo $new_ip
 
