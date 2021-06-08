@@ -94,7 +94,6 @@ dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones
 if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
     current_ip=$(bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .content")
     dns_record_id=$(bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .id")
-    echo $dns_record_id
     if [[ $current_ip = $ip ]]; then
         echo "Current ip up-to-date. Not updating!"
     #else
@@ -109,15 +108,17 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
 "proxied": '"$PROXY"'
 }'
 
-        echo $new_dns_record
-
         dns_record_response=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records/$dns_record_id" \
             -H "X-Auth-Email: $EMAIL" \
             -H "X-Auth-Key: $API" \
             -H "Content-type: application/json" \
             --data "$new_dns_record")
         
-        echo $dns_record_response
+        if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
+            echo "IP was successfully updated to $ip"
+        else
+            echo "An error occured during updating the IP with the cloudflare API"
+        fi
     fi 
 else
     echo "An error occured during the cloudflare API call"
