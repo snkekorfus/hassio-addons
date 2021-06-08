@@ -103,7 +103,7 @@ else
 fi
 
 # DNS record to add or update
-read -r -d '' new_dns_record <<EOF
+new_dns_record <<EOF
 {
     "type": "$record_type",
     "name": "$HOST",
@@ -113,6 +113,9 @@ read -r -d '' new_dns_record <<EOF
     "proxied": $PROXY
 }
 EOF
+
+echo $new_dns_record
+exit 1
 
 # Adds or updates the record
 dns_record_id=$(jq <<<"$dns_record_response" -r ".result[] | select(.type ==\"$record_type\") |.id")
