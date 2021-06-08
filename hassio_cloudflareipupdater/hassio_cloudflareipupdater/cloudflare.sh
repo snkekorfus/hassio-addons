@@ -105,7 +105,7 @@ fi
 echo "Define the new DNS"
 
 # DNS record to add or update
-read -r -d '' new_dns_record <<-EOM
+read -r -d '' new_dns_record <<EOF || true
 {
     "type": "$record_type",
     "name": "$HOST",
@@ -114,7 +114,7 @@ read -r -d '' new_dns_record <<-EOM
     "priority": 10,
     "proxied": $PROXY
 }
-EOM
+EOF
 
 echo "Here commes the new DNS"
 echo $new_dns_record
