@@ -87,7 +87,7 @@ fi
 echo "Zone $ZONE id : $zone_id"
 
 # Tries to fetch the record of the host
-dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?name=$HOST" \
+dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?name=$HOST.$ZONE" \
         -H "X-Auth-Email: $EMAIL" \
         -H "X-Auth-Key: $API" \
         -H "Content-Type: application/json")
