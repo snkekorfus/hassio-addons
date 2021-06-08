@@ -96,7 +96,7 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
     dns_record_id=$(bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .id")
     if [[ $current_ip = $ip ]]; then
         echo "Current ip up-to-date. Not updating!"
-    #else
+    else
         echo "Current ip outdated. Updating!"
         # DNS record to add or update
         new_dns_record='{
@@ -125,5 +125,5 @@ else
 fi
 
 
-sleep 300  
+sleep 300 
 done
