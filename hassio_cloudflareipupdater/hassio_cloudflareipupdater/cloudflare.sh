@@ -94,14 +94,11 @@ dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones
 
 echo $dns_record_response
 
-bashio::jq "$dns_record_response" .success
 
-#if [[ bashio::jq ]]
-
-if [[ $(jq <<<"$dns_record_response" -r '.success') != "true" ]]; then
-    messages=$(jq <<<"$dns_record_response" -r '[.errors[] | .message] |join(" - ")')
-    echo >&2 "Error: $messages"
-    exit 1
+if [[ bashio::jq "$dns_record_response" ".success" = "true"]]; then
+    bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\")"
+else
+    echo "An error occured during the cloudflare API call"
 fi
 
 # DNS record to add or update
