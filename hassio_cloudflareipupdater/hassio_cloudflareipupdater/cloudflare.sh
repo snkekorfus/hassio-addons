@@ -99,7 +99,7 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
     #else
         echo "Current ip outdated. Updating!"
         # DNS record to add or update
-        read -r -d '' new_dns_record <<EOF || true
+        read -r -d '' new_dns_record <<-EOF || true
 {
     "type": "$record_type",
     "name": "$HOST",
@@ -115,9 +115,7 @@ EOF
             -H "X-Auth-Email: $EMAIL" \
             -H "X-Auth-Key: $API" \
             -H "Content-Type: application/json" \
-            --data $new_dns_record)
-
-        echo "$dns_record_response"
+            --data "$new_dns_record")
     fi 
 else
     echo "An error occured during the cloudflare API call"
