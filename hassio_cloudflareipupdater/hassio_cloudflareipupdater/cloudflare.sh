@@ -93,6 +93,7 @@ dns_record_response=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones
 
 if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
     current_ip=$(bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .content")
+    dns_record_id=$(bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .id")
     if [[ $current_ip = $ip ]]; then
         echo "Current ip up-to-date. Not updating!"
     #else
