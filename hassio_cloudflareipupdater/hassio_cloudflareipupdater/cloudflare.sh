@@ -102,6 +102,8 @@ else
     echo "An error occured during the cloudflare API call"
 fi
 
+echo "Define the new DNS"
+
 # DNS record to add or update
 read -r -d '' new_dns_record <<-EOM
 {
