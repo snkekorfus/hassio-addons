@@ -47,6 +47,8 @@ else
     record_type="AAAA"
 fi
 
+echo $(ifconfig)
+
 # Determines the current IP address
 new_ip=$($ip_curl https://davidramosweb.com/miip.php)
 
