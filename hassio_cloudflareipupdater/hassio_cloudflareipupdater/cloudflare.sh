@@ -96,7 +96,7 @@ echo $dns_record_response
 
 
 if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
-    bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\")"
+    bashio::jq "$dns_record_response" ".result[] | select(.name==\"$HOST.$ZONE\") | .content"
 else
     echo "An error occured during the cloudflare API call"
 fi
