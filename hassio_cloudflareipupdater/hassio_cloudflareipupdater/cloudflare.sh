@@ -118,7 +118,7 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
         if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
             echo "IP was successfully updated to $ip"
         else
-            echo "An error occured during updating the IP with the cloudflare API"
+            echo '$(bashio::jq "$dns_record_response")'
         fi
     fi 
 else
