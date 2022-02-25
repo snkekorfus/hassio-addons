@@ -118,7 +118,7 @@ if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
         if [[ $(bashio::jq "$dns_record_response" ".success") = "true" ]]; then
             echo "IP was successfully updated to $ip"
         else
-            echo '$(bashio::jq "$dns_record_response")'
+            echo $(bashio::jq "$dns_record_response")
         fi
     fi 
 else
